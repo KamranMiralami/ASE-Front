@@ -1,0 +1,132 @@
+/* جهت کلی متن و راست‌چین شدن */
+body {
+    direction: rtl;
+    text-align: right;
+    background-color: #f8f9fa;
+    /* رنگ پس‌زمینه کم‌رنگ */
+}
+
+/* استایل کارت محصولات */
+.product-card {
+    height: 650px;
+    /* or any height you prefer */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* ensures button stays bottom-aligned */
+    overflow: hidden;
+    /* hides anything that overflows */
+}
+
+.product-card:hover {
+    transform: scale(1.02);
+}
+
+/* توضیحات قابل اسکرول */
+.scrollable-description {
+    max-height: 225px;
+    /* ارتفاع ثابت برای توضیحات */
+    overflow-y: auto;
+    margin-bottom: 0.5rem;
+}
+
+/* رنگ قیمت */
+.price {
+    color: #e74c3c;
+    /* رنگ قرمز */
+}
+
+/* برخی تنظیمات واکنش‌گرا */
+.navbar {
+    margin-bottom: 1rem;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.my-inverted-button {
+    transform: scaleX(-1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -10px;
+}
+
+.my-inverted-button .no-flip {
+    transform: scaleX(-1);
+}
+
+/* Prevent border expansion on focus */
+#searchInput:focus {
+    outline: none;
+    /* Remove default browser outline */
+    box-shadow: none;
+    /* Remove Bootstrap's shadow (if using Bootstrap) */
+    border-color: #007bff;
+    /* Customize the border color to match your theme */
+}
+
+/* Prevent overlap by adjusting z-index */
+#searchInput {
+    position: relative;
+    /* Ensures z-index works */
+    z-index: 1;
+    /* Keeps it behind other objects */
+}
+
+#searchInput:focus {
+    z-index: auto;
+    /* Ensures it doesn't override nearby elements */
+}
+
+/* Permanent ring effect for nav links */
+.navbar-nav .nav-link {
+    position: relative;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    /* Padding for a larger ring */
+    border: 2px solid #00d1b2;
+    /* Ring border */
+    border-radius: 50px;
+    /* Round ring */
+    text-align: center;
+    margin: 0.5rem 0.75rem;
+    /* Space between links */
+    border-radius: 20px;
+    /* Less rounded corners for a sharper look */
+    transition: all 0.3s ease;
+    /* Smooth animations */
+}
+
+/* On hover: Slightly enlarge the ring */
+.navbar-nav .nav-link:hover {
+    color: #00d1b2;
+    background-color: rgba(0, 209, 178, 0.1);
+    transform: scale(1.05);
+}
+
+/* Navbar links in burger menu (collapsed) */
+.navbar-collapse {
+    text-align: right;
+    /* Ensure text starts from the right side */
+}
+
+.navbar-nav {
+    flex-direction: column;
+    /* Stack links vertically */
+    align-items: flex-start;
+    /* Align links to the right */
+    padding-right: 0px;
+    /* Slightly push the items further to the right */
+}
+
+.navbar-nav .nav-item {
+    display: flex;
+    /* Flexbox for consistent alignment */
+    justify-content: flex-start;
+    /* Push links to the right */
+    padding-right: 0px;
+    /* Slightly push the items further to the right */
+    width: auto;
+}

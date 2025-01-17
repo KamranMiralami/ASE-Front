@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Sort the filtered products
                     const sortedProducts = sortProducts(filteredProducts, selectedOrder);
                     displayProducts(sortedProducts);
+                    saveOriginalOrder();
                 })
                 .catch((error) => {
                     console.error("Error fetching search results:", error);

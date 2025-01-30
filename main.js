@@ -54,60 +54,71 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // آرایه‌ای برای نگهداری کلیه محصولات
 let allProducts = [];
-// تابع برای تولید و نمایش کارت‌های محصول
 function displayProducts(productsArray) {
-    let output = "";
-    if (productsArray.length === 0) {
-        output = `
-          <div class="col-12">
-            <div class="alert alert-warning text-center" role="alert">
-              هیچ محصولی برای نمایش وجود ندارد.
+  let output = "";
+  if (productsArray.length === 0) {
+      output = `
+        <div class="col-12">
+          <div class="alert alert-warning text-center" role="alert">
+            هیچ محصولی برای نمایش وجود ندارد.
+          </div>
+        </div>
+      `;
+      productsSection.innerHTML = output;
+      return;
+  }
+  
+  const vendorMap = allVendors.reduce((acc, vendor) => {
+      acc[vendor._id] = vendor;
+      return acc;
+  }, {});
+  
+  productsArray.forEach((product, index) => {
+      const vendor = vendorMap[product.vendor] || { name: "نامشخص", website: "#" };
+      output += `
+          <div class="col-md-4 mb-4">
+            <div class="card product-card shadow-sm rounded-3 h-100" data-bs-toggle="modal" data-bs-target="#productModal${index}">
+              <img
+                src="https://placehold.co/300x200"
+                class="card-img-top mx-auto d-block"
+                alt="${product.name}"
+              />
+              <div class="card-body d-flex flex-column p-3 text-center">
+                <h5 class="card-title fw-bold text-center mb-2">
+                  ${product.name}
+                </h5>
+                <p class="price fw-bold fs-5 mt-auto">
+                  ${product.price} تومان
+                </p>
+              </div>
             </div>
           </div>
-        `;
-        productsSection.innerHTML = output;
-        return;
-    }
-    productsArray.forEach((product) => {
-        output += `
-            <div class="col-md-4 mb-4">
-              <div class="card product-card shadow-sm rounded-3 h-100">
-                <img
-                  src="https://placehold.co/300x200"
-                  class="card-img-top"
-                  alt="${product.name}"
-                />
-                <div class="card-body d-flex flex-column p-3">
-                  <!-- Product Name -->
-                  <h5 class="card-title fw-bold text-center mb-2">
-                    ${product.name}
-                  </h5>
-        
-                  <!-- Scrollable Description -->
-                  <div class="scrollable-description mb-3">
-                    <p class="card-text text-muted">
-                      ${product.description}
-                    </p>
-                  </div>
-        
-                  <!-- Price -->
-                  <p class="price fw-bold fs-5 mt-auto">
-                    ${product.price} تومان
-                  </p>
-        
-                  <!-- Button -->
-                  <a
-                    href="${product.productUrl}"
-                    class="btn btn-primary mt-2"
-                    target="_blank"
-                  >
-                    مشاهده محصول
-                  </a>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="productModal${index}" tabindex="-1" aria-labelledby="productModalLabel${index}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-between">
+                  <h5 class="modal-title ms-3" id="productModalLabel${index}">${product.name}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                </div>
+                <div class="modal-body">
+                  <img src="https://placehold.co/600x400" class="img-fluid mx-auto d-block mb-3" alt="${product.name}" />
+                  <p class="text-muted">${product.description}</p>
+                  <p class="fw-bold">قیمت: ${product.price} تومان</p>
+                  <p class="text-muted"><strong>فروشنده:</strong> <a href="${vendor.website}" target="_blank">${vendor.name}</a></p>
+                  <p class="text-muted"><strong>ایجاد شده در:</strong> ${new Date(product.created_at).toLocaleString('fa-IR')}</p>
+                  <p class="text-muted"><strong>آخرین بروزرسانی:</strong> ${new Date(product.updated_at).toLocaleString('fa-IR')}</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <a href="${product.productUrl}" class="btn btn-primary" target="_blank">مشاهده محصول</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
                 </div>
               </div>
             </div>
-          `;
-    });
-
-    productsSection.innerHTML = output;
+          </div>
+      `;
+  });
+  
+  productsSection.innerHTML = output;
 }

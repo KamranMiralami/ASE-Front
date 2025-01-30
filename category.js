@@ -10,12 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => response.json())
         .then((data) => {
             // Check if categories exist in the response
+            console.log(data);
             const { categories } = data;
 
             if (Array.isArray(categories) && categories.length > 0) {
                 // Initialize category options with a default option
                 let categoryOptions = `<option value="all" selected>همه دسته‌بندی‌ها</option>`;
-                console.log(categories);
+                //console.log(categories);
                 // Loop through the categories and create <option> elements
                 categories.forEach((category) => {
                     categoryOptions += `<option value="${category._id}">${category.catName}</option>`;
